@@ -12,7 +12,7 @@ import java.util.Scanner;
 import ufsc.dso.trabalho1.Controladores.ControladorGeral;
 
 
-public class teste {
+public class Main {
     
     private static boolean fecharSistema = false;
  
