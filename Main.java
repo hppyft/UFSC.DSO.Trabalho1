@@ -48,7 +48,7 @@ public class Main {
     }
 
     public static void setFecharSistema(boolean fecharSistema) {
-        teste.fecharSistema = fecharSistema;
+        Main.fecharSistema = fecharSistema;
     }
     
 }
