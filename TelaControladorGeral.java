@@ -1,6 +1,7 @@
 
-package ufsc.dso.trabalho1.Telas;
+package Entidades;
 import java.util.Scanner;
+import static jdk.nashorn.tools.ShellFunctions.input;
 
 public class TelaControladorGeral {
     private Scanner scanner = new Scanner(System.in);
@@ -8,14 +9,35 @@ public class TelaControladorGeral {
     public TelaControladorGeral() {
     }
     
-    public String telaAtualizaHora (){
-        scanner.nextLine();
-        System.out.println("Para iniciar o sistema, por favor digite o horario atual");
-        return scanner.nextLine();
-    }
+    public String telaAtualizaHora () throws DataInvalidaException{
+        int hora = -1;
+        int minutos = -1;
+        System.out.println("Para iniciar o sistema, por favor digite o hora atual");
+        try{
+            hora = Integer.parseInt(scanner.nextLine());
+            while(hora < 0 || hora > 23){
+            
+                System.out.println("Voce digitou um valor incorreto. Para iniciar o sistema, por favor digite o hora atual");
+                hora = Integer.parseInt(scanner.nextLine());
+            }
+        }catch(NumberFormatException e){
+            throw new DataInvalidaException("Hora invalida.");
+        }
+        System.out.println("Para iniciar o sistema, por favor digite o minuto atual");
+        try{
+            minutos = Integer.parseInt(scanner.nextLine());
+            while(minutos < 0 || minutos > 59){
+                System.out.println("Voce digitou um valor incorreto. Para iniciar o sistema, por favor digite o minuto atual");
+                minutos = Integer.parseInt(scanner.nextLine());
+            }
+        }catch(NumberFormatException e){
+            throw new DataInvalidaException("MInutos invalida.");
+        }
+        String data = ""+hora+":"+minutos;
+        return data; 
+   }
 
     public int mostraMenu() {
-        scanner.nextLine();
         
         System.out.println("Bem Vindo ao sitema");
         System.out.println("");
