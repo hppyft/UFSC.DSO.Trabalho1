@@ -3,6 +3,7 @@ package ufsc.dso.trabalho1.Controladores;
 import java.util.HashMap;
 import ufsc.dso.trabalho1.Entidades.Funcionario;
 import ufsc.dso.trabalho1.Telas.TelaControladorFuncionario;
+import ufsc.dso.trabalho1.Entidades.Cargo;
 
 public class ControladorFuncionario {
     
@@ -20,7 +21,7 @@ public class ControladorFuncionario {
     }
 
     public void inicializa() {
-        TelaControladorFuncionario telaControladorCadastro = new TelaControladorFuncionario();
+        TelaControladorFuncionario telaControladorFuncionario = new TelaControladorFuncionario();
         //botar as opções e os caralho
     }
     
@@ -33,7 +34,10 @@ public class ControladorFuncionario {
         int diaNascimento = telaControladorFuncionario.telaCadastroFuncionarioDiaNascimento();
         int telefone = telaControladorFuncionario.telaCadastroFuncionarioTelefone();
         int salario = telaControladorFuncionario.telaCadastroFuncionarioSalario();
-        String nomeDoCargo = telaControladorFuncionario.telaCadastroFuncionarioNomeDoCargo();
-        //criar metodo para localizar funcionario pelo cargo
+        Integer codigoDoCargo = telaControladorFuncionario.telaCadastroFuncionarioCodigoDoCargo();
+        Cargo cargo = ControladorCargo.getInstance().buscaCargoPeloCodigo(codigoDoCargo);
+        Funcionario funcionario = new Funcionario(matricula,nome,anoNascimento,mesNascimento,diaNascimento,telefone,salario,cargo);
+        listaFuncionarios.put(funcionario.getMatricula(), funcionario);
+        return funcionario;
     }
 }
