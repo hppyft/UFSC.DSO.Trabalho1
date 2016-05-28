@@ -51,9 +51,9 @@ public class TelaControladorFuncionario {
         return scanner.nextInt();
     }
 
-    public String telaCadastroFuncionarioNomeDoCargo() {
+    public Integer telaCadastroFuncionarioCodigoDoCargo() {
         scanner.nextLine();
         System.out.println("Digite o nome do cargo do funcionario");
-        return scanner.nextLine();
+        return scanner.nextInt();
     }
 }
