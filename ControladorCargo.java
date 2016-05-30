@@ -41,4 +41,23 @@ public class ControladorCargo {
         }
         return cargo;
     }
+    
+    public Cargo inserirCargo(){
+        TelaControladorCargo telaControladorCargo = new TelaControladorCargo();
+        String nome = telaControladorCargo.telaCadastroCargoNome();
+        Integer codigo = telaControladorCargo.telaCadastroCargoCodigo();
+        boolean ehGerencial = telaControladorCargo.telaCadastroCargoEhGerencial();
+        boolean acesso = true;
+        if (!ehGerencial){
+            acesso = telaControladorCargo.telaCadastroCargoAcesso();
+        }
+        if (!ehGerencial && acesso){
+            int horaEntrada = telaControladorCargo.telaCadastroCargoHoraEntrada();
+            int minutoEntrada = telaControladorCargo.telaCadastroCargoMinutoEntrada();
+            int horaSaida = telaControladorCargo.telaCadastroCargoHoraSaida();
+            int minutoSaida = telaControladorCargo.telaCadastroCargoMinutoSaida();
+        }
+        
+        
+    }
 }
