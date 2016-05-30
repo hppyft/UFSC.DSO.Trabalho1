@@ -1,11 +1,12 @@
 
-package Entidades;
+package ufsc.dso.trabalho1.Controladores;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
-
-import Entidades.TelaControladorGeral;
+import ufsc.dso.trabalho1.Main;
+import ufsc.dso.trabalho1.Telas.TelaControladorGeral;
+import ufsc.dso.trabalho1.Entidades.DataInvalidaException;
 
 public class ControladorGeral {
     private static ControladorGeral instancia;
@@ -23,12 +24,13 @@ public class ControladorGeral {
     }
     
     public void atualizaHora (){
-        boolean DataInvalida = false;
-        while(!DataInvalida){
+        boolean DataValida = false;
+        while(!DataValida){
             try{
                 TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
                 String horaAtualizada = telaControladorGeral.telaAtualizaHora();
                 this.horarioAtual = datos.parse(horaAtualizada);
+                DataValida = true;
             }
             catch (DataInvalidaException e){
                 System.out.println(e.getMessage());
@@ -40,8 +42,9 @@ public class ControladorGeral {
     }
 
     public void inicializa() {
-        while (horarioAtual == null)
+        while (horarioAtual == null){
             this.atualizaHora();
+        }
         TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
         int opcao = telaControladorGeral.mostraMenu();
         try{
