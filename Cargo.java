@@ -6,25 +6,16 @@ import java.util.HashMap;
 public class Cargo {
     
     private String nome;
-    private int codigo;
+    private Integer codigo;
     private boolean acesso;
     private HashMap<String, String> listaHorarios = new HashMap<>();
     private boolean gerencial;
 
-    public Cargo(String nome, int codigo, boolean acesso, boolean ehGerencial, String horarioEntrada1, String horarioSaida1, String horarioEntrada2, String horarioSaida2) {
+    public Cargo(String nome, Integer codigo, boolean ehGerencial, boolean acesso) {
         this.nome = nome;
         this.codigo = codigo;
-        this.acesso = acesso;
         this.gerencial = ehGerencial;
-        this.listaHorarios.put(horarioEntrada1,horarioSaida1);
-        this.listaHorarios.put(horarioEntrada2,horarioSaida2);
-    }
-
-    public Cargo(String nome, int codigo, boolean acesso, boolean ehGerencial) {
-        this.nome = nome;
-        this.codigo = codigo;
         this.acesso = acesso;
-        this.gerencial = ehGerencial;
     }
 
     public boolean isGerencial() {
@@ -55,7 +46,7 @@ public class Cargo {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
