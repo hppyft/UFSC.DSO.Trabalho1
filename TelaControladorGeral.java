@@ -1,7 +1,7 @@
 
-package Entidades;
+package ufsc.dso.trabalho1.Telas;
 import java.util.Scanner;
-import static jdk.nashorn.tools.ShellFunctions.input;
+import ufsc.dso.trabalho1.Entidades.DataInvalidaException;
 
 public class TelaControladorGeral {
     private Scanner scanner = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class TelaControladorGeral {
                 minutos = Integer.parseInt(scanner.nextLine());
             }
         }catch(NumberFormatException e){
-            throw new DataInvalidaException("MInutos invalida.");
+            throw new DataInvalidaException("Minuto invalido.");
         }
         String data = ""+hora+":"+minutos;
         return data; 
