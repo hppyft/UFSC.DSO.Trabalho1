@@ -1,17 +1,11 @@
 
 package ufsc.dso.trabalho1.Controladores;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;
-import ufsc.dso.trabalho1.Main;
 import ufsc.dso.trabalho1.Telas.TelaControladorGeral;
-import ufsc.dso.trabalho1.Entidades.DataInvalidaException;
 
 public class ControladorGeral {
     private static ControladorGeral instancia;
-    private SimpleDateFormat datos = new SimpleDateFormat("HH:mm");
-    private Date horarioAtual;
+    private boolean fecharSistema = false;
     
     private ControladorGeral(){
     }
@@ -23,52 +17,77 @@ public class ControladorGeral {
         return instancia;
     }
     
-    public void atualizaHora (){
-        boolean DataValida = false;
-        while(!DataValida){
+    public void inicializaSistema() {
+        
+        while (ControladorHorario.getInstance().getHorarioAtual() == null){
+            ControladorHorario.getInstance().atualizaHorarioSistema();
+        }
+        while (ControladorData.getInstance().getDataAtual() == null){
+            ControladorData.getInstance().atualizaDataSistema();
+        }
+    }
+    public void inicializa() {
+        this.inicializaSistema();
+        while (!this.isFecharSistema()){
+            TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
+            int opcao = telaControladorGeral.mostraMenu();
             try{
-                TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
-                String horaAtualizada = telaControladorGeral.telaAtualizaHora();
-                this.horarioAtual = datos.parse(horaAtualizada);
-                DataValida = true;
+                switch (opcao){
+                    case 1:
+                        ControladorAcesso.getInstance().inicializa();
+                        break;
+
+                    case 2:
+                        ControladorFuncionario.getInstance().inicializa();
+                        break;
+
+                    case 3:
+                        ControladorCargo.getInstance().inicializa();
+                        break;
+
+                    case 4:
+                        ControladorHorario.getInstance().atualizaHorarioSistema();
+                        break;
+
+                    case 5:
+                        ControladorData.getInstance().atualizaDataSistema();
+                        break;
+
+                    case 6:
+                        fecharSistema();
+                        break;
+
+                    default:
+                        telaControladorGeral.telaMensagem(opcao+" nao eh uma opcao valida");
+                        break;
+                }
             }
-            catch (DataInvalidaException e){
-                System.out.println(e.getMessage());
+            catch(Exception e){
+                telaControladorGeral.telaMensagem("Voce digitou um tipo incorreto de caracter, por favor digite apenas numeros quando for pedido");
             }
-            catch (ParseException e){
-                System.out.println("Voce nao pos um horario valido. Logo, o horario nao foi atualizado. Por favor refaca o processo colocando um horario valido");
-            }
+        }
+    }
+    
+    public void fecharSistema(){
+        TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
+        int opcao = telaControladorGeral.telaFecharSistema();
+        if (opcao == 1){
+            this.setFecharSistema(true);
+        }
+        else if (opcao ==2){
+        }
+        else{
+            telaControladorGeral.telaMensagem("Por favor digite apenas 1 para SIM ou 2 para NAO");
         }
     }
 
-    public void inicializa() {
-        while (horarioAtual == null){
-            this.atualizaHora();
-        }
-        TelaControladorGeral telaControladorGeral = new TelaControladorGeral();
-        int opcao = telaControladorGeral.mostraMenu();
-        try{
-            switch (opcao){
-                case 1:
-                    ControladorAcesso.getInstance().inicializa();
-                    break;
-                    
-                case 2:
-                    ControladorFuncionario.getInstance().inicializa();
-                    break;
-                    
-                case 3:
-                    this.atualizaHora();
-                    break;
-                    
-                case 4:
-                    Main.setFecharSistema(true);
-                    break;
-                default:
-                    break;
-            }
-        }catch(Exception e){
-            System.out.println(opcao+" nao eh uma opcao valida");
-        }
+    public boolean isFecharSistema() {
+        return fecharSistema;
     }
+
+    public void setFecharSistema(boolean fecharSistema) {
+        this.fecharSistema = fecharSistema;
+    }
+    
+    
 }
