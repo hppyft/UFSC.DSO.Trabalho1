@@ -1,6 +1,7 @@
 
 package ufsc.dso.trabalho1.Entidades;
-import java.util.HashMap;
+import java.util.ArrayList;
+import ufsc.dso.trabalho1.Entidades.IntervaloHorario;
 
 
 public class Cargo {
@@ -8,15 +9,23 @@ public class Cargo {
     private String nome;
     private Integer codigo;
     private boolean acesso;
-    private HashMap<String, String> listaHorarios = new HashMap<>();
+    private ArrayList<IntervaloHorario> listaIntervaloHorarios = new ArrayList<>();
     private boolean gerencial;
 
-    public Cargo(String nome, Integer codigo, boolean ehGerencial, boolean acesso) {
+    public Cargo(boolean ehGerencial, String nome, Integer codigo) {
+        this.gerencial = ehGerencial;
         this.nome = nome;
         this.codigo = codigo;
-        this.gerencial = ehGerencial;
-        this.acesso = acesso;
+        this.acesso = true;
     }
+
+    public Cargo(String nome, Integer codigo, boolean acesso) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.acesso = acesso;
+        this.gerencial = false;
+    }
+    
 
     public boolean isGerencial() {
         return gerencial;
@@ -26,12 +35,12 @@ public class Cargo {
         this.gerencial = gerencial;
     }
     
-    public void incluiHorario(String horarioEntrada, String horarioSaida){
-        this.listaHorarios.put(horarioEntrada,horarioSaida);
+    public void incluiHorario(IntervaloHorario intervaloHorario){
+        this.listaIntervaloHorarios.add(intervaloHorario);
     }
     
-    public HashMap<String,String> getHorarios(){
-        return listaHorarios;
+    public ArrayList<IntervaloHorario> getListaIntervaloHorarios(){
+        return listaIntervaloHorarios;
     }
     
     public String getNome() {
@@ -57,6 +66,5 @@ public class Cargo {
     public void setAcesso(boolean acesso) {
         this.acesso = acesso;
     }
-    
     
 }
